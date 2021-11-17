@@ -85,6 +85,9 @@ For a given frame (say frame 80), the plot would look like this:
 fig, ax = build_figure_and_axis()
 plot_sine(fig, ax, frame_number=80, linewidth=4)
 ```
+
+![image](https://user-images.githubusercontent.com/19944442/142292143-fa9052fa-eb05-4a96-afab-5e211555acbf.png)
+
 ### Then instantiate the movie class, passing in the desired parameters
 Note that the filename ends in `.gif`, which will result in an animated gif. Using `.avi` or `.mp4` will result in movie files.
 ```python
@@ -175,6 +178,7 @@ def plot_both_circle_and_sine(fig, ax, frame_number, *args, **kwargs):
 fig, ax = build_extended_figure_and_axis()
 plot_both_circle_and_sine(fig, ax, frame_number=80)
 ```
+![image](https://user-images.githubusercontent.com/19944442/142292206-c4c6e992-5a67-45c5-a67f-97ea852115a5.png)
 
 ### Instantiate movie class
 We give it a new filename.  

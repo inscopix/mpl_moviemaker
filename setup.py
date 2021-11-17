@@ -16,5 +16,6 @@ setup(
         'numpy',
         'tqdm',
         'ipykernel',
+        'figrid',
     ],
 )

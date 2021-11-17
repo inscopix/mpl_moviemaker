@@ -6,10 +6,23 @@ import numpy as np
 
 class Movie(object):
 
-    def __init__(self, start_frame, end_frame, fps, output_filename, fig_ax_func, frame_func, frame_interval=1, *args, **kwargs):
+    def __init__(self, start_frame, end_frame, fps, output_filename, fig_ax_func, frame_func, frame_interval=1, ffmpeg_path='/usr/bin/ffmpeg', *args, **kwargs):
+        '''
+        init function for Movie class
 
-        mpl.rcParams['animation.ffmpeg_path'] = '/usr/bin/ffmpeg'
-        plt.rcParams['animation.ffmpeg_path'] = '/usr/bin/ffmpeg'
+        Args:
+            start_frame (int): initial frame for output movie
+            end_frame (int): final frame for output movie
+            fps (float): desired playback speed of output movie in frames per second
+            output_filename (str): output filename. type is specified by extension
+            fig_ax_func (function): user defined function to generate figure and axes. must return fig, ax tuple
+            frame_func (function): user defined function to plot frame. must take fig, ax, frame_number as inputs, plus additional *args, **kwargs
+            frame_interval (int, optional): step between frames. Defaults to 1.
+            ffmpeg_path (str, optional): path to ffmpeg install location on user's system. Defaults to '/usr/bin/ffmpeg'
+        '''
+
+        mpl.rcParams['animation.ffmpeg_path'] = ffmpeg_path
+        plt.rcParams['animation.ffmpeg_path'] = ffmpeg_path
 
         plt.style.use('dark_background')
 
@@ -55,23 +68,30 @@ class Movie(object):
     def update(self, frame_number):
         '''
         method to update figure
-        animation class will call this
-        the print statement is there to help track progress
+        animation class will call this on every frame
+
+        Args:
+            frame_number (int): current frame number
         '''
         self.clear_axes(self.ax)
 
         self.frame_func(
-            fig=self.fig, 
-            ax=self.ax, 
-            frame_number=frame_number,
+            self.fig, 
+            self.ax, 
+            frame_number,
             *self.args,
             **self.kwargs)
 
-        # print('done plotting at {} seconds'.format(time.time() - t0))
-
         self.pbar.update(1)
 
+
     def set_up_writer(self):
+        '''
+        instantiates the matplotlib writer object
+
+        Returns:
+            FFMpegWriter: the FFMpegWriter object
+        '''
 
         writer = animation.FFMpegWriter(
             fps=self.fps,
@@ -82,6 +102,10 @@ class Movie(object):
         return writer
 
     def make_movie(self):
+        '''
+        a wrapper on the matplotlib animation.FuncAnimation class
+        user calls this without arguments after instantiating the Movie class
+        '''
         self.fig, self.ax = self.fig_ax_func()
         a = animation.FuncAnimation(
             self.fig,

@@ -185,7 +185,19 @@ plot_both_circle_and_sine(fig, ax, frame_number=80)
 ### Instantiate movie class
 We give it a new filename.  
 Note that we can also pass keyword arguments. In this case, we'll specify the linewidth and change the linecolor from the default.
-
+```python
+movie = Movie(
+    start_frame=0,
+    end_frame=360,
+    fps=60,
+    frame_interval=5,
+    output_filename='sample_movie_2.gif',
+    fig_ax_func=build_extended_figure_and_axis,
+    frame_func=plot_both_circle_and_sine,
+    linewidth=4, 
+    linecolor='DodgerBlue',
+)
+```
 ### Then call the `make_movie` method:
 ```python
 movie.make_movie()

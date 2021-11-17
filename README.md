@@ -20,6 +20,7 @@ The functions in this library are built on top of the Matplotlib Animation class
 The basic concept is that the user defines two functions:
 * A function to lay out the figure canvas and axis (or axes) on that canvas
 * A function to define what is displayed on those axes for a given frame.  
+
 The user then instantiates the `Movie` class, passing it those two functions along with some other parameters (start_frame, end_frame, frame_step, fps, filename). After calling the `make_movie` method on the `Movie` class, each frame will be generated and stacked into a movie with the desired filename.  
 
 The package assumes that the user has ffmpeg installed on their system. See https://www.ffmpeg.org/download.html  

@@ -6,7 +6,7 @@ import numpy as np
 
 class Movie(object):
 
-    def __init__(self, start_frame, end_frame, fps, output_filename, fig_ax_func, frame_func, frame_interval=1, ffmpeg_path='/usr/bin/ffmpeg', *args, **kwargs):
+    def __init__(self, start_frame, end_frame, fps, output_filename, fig_ax_func, frame_func, frame_interval=1, ffmpeg_path='/usr/bin/ffmpeg', matplotlib_style='dark_background', *args, **kwargs):
         '''
         init function for Movie class
 
@@ -19,12 +19,13 @@ class Movie(object):
             frame_func (function): user defined function to plot frame. must take fig, ax, frame_number as inputs, plus additional *args, **kwargs
             frame_interval (int, optional): step between frames. Defaults to 1.
             ffmpeg_path (str, optional): path to ffmpeg install location on user's system. Defaults to '/usr/bin/ffmpeg'
+            matplotlib_style (str, optional): desired matplotlib style. Defaults to 'dark_background'
         '''
 
         mpl.rcParams['animation.ffmpeg_path'] = ffmpeg_path
         plt.rcParams['animation.ffmpeg_path'] = ffmpeg_path
 
-        plt.style.use('dark_background')
+        plt.style.use(matplotlib_style)
 
         self.output_filename = output_filename
 

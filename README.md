@@ -177,10 +177,6 @@ def plot_both_circle_and_sine(fig, ax, frame_number, *args, **kwargs):
     plot_circle(fig, ax['circle'], frame_number=frame_number, **kwargs)
     plot_sine(fig, ax['sine'], frame_number=frame_number, **kwargs)
 
-def plot_both_circle_and_sine(fig, ax, frame_number, *args, **kwargs):
-    plot_circle(fig, ax['circle'], frame_number=frame_number, **kwargs)
-    plot_sine(fig, ax['sine'], frame_number=frame_number, **kwargs)
-
 fig, ax = build_extended_figure_and_axis()
 plot_both_circle_and_sine(fig, ax, frame_number=80)
 ```

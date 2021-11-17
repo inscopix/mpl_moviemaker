@@ -107,7 +107,8 @@ The movie will generate. This example should take only a few seconds, but longer
 ```python
 movie.make_movie()
 ```
-which gives:
+which gives:  
+
 ![Alt Text](https://github.com/inscopix/mpl_moviemaker/blob/main/sample_movie_1.gif)
 
 
@@ -179,7 +180,7 @@ def plot_both_circle_and_sine(fig, ax, frame_number, *args, **kwargs):
 fig, ax = build_extended_figure_and_axis()
 plot_both_circle_and_sine(fig, ax, frame_number=80)
 ```
-![image](https://user-images.githubusercontent.com/19944442/142292206-c4c6e992-5a67-45c5-a67f-97ea852115a5.png)
+![image](https://user-images.githubusercontent.com/19944442/142292480-e56fd42f-87d7-47ef-9da6-d08770193a23.png)
 
 ### Instantiate movie class
 We give it a new filename.  

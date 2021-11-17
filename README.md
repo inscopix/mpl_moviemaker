@@ -24,4 +24,4 @@ The user then instantiates the `Movie` class, passing it those two functions alo
 
 ## a simple example
 
-![Alt Text](https://github.com/inscopix/mpl_moviemaker/sample_movie.gif)
+![Alt Text](https://github.com/inscopix/mpl_moviemaker/sample_movie_1.gif)

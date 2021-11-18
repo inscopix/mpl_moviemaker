@@ -20,6 +20,7 @@ The functions in this library are built on top of the Matplotlib Animation class
 The basic concept is that the user defines two functions:
 * A function to lay out the figure canvas and axis (or axes) on that canvas
 * A function to define what is displayed on those axes for a given frame.  
+
 The user then instantiates the `Movie` class, passing it those two functions along with some other parameters (start_frame, end_frame, frame_step, fps, filename). After calling the `make_movie` method on the `Movie` class, each frame will be generated and stacked into a movie with the desired filename.  
 
 The package assumes that the user has ffmpeg installed on their system. See https://www.ffmpeg.org/download.html  
@@ -176,10 +177,6 @@ def plot_both_circle_and_sine(fig, ax, frame_number, *args, **kwargs):
     plot_circle(fig, ax['circle'], frame_number=frame_number, **kwargs)
     plot_sine(fig, ax['sine'], frame_number=frame_number, **kwargs)
 
-def plot_both_circle_and_sine(fig, ax, frame_number, *args, **kwargs):
-    plot_circle(fig, ax['circle'], frame_number=frame_number, **kwargs)
-    plot_sine(fig, ax['sine'], frame_number=frame_number, **kwargs)
-
 fig, ax = build_extended_figure_and_axis()
 plot_both_circle_and_sine(fig, ax, frame_number=80)
 ```
@@ -188,7 +185,19 @@ plot_both_circle_and_sine(fig, ax, frame_number=80)
 ### Instantiate movie class
 We give it a new filename.  
 Note that we can also pass keyword arguments. In this case, we'll specify the linewidth and change the linecolor from the default.
-
+```python
+movie = Movie(
+    start_frame=0,
+    end_frame=360,
+    fps=60,
+    frame_interval=5,
+    output_filename='sample_movie_2.gif',
+    fig_ax_func=build_extended_figure_and_axis,
+    frame_func=plot_both_circle_and_sine,
+    linewidth=4, 
+    linecolor='DodgerBlue',
+)
+```
 ### Then call the `make_movie` method:
 ```python
 movie.make_movie()

@@ -25,7 +25,7 @@ class Movie(object):
         mpl.rcParams['animation.ffmpeg_path'] = ffmpeg_path
         plt.rcParams['animation.ffmpeg_path'] = ffmpeg_path
 
-        plt.style.use(matplotlib_style)
+        self.matplotlib_style = matplotlib_style
 
         self.output_filename = output_filename
 
@@ -107,18 +107,19 @@ class Movie(object):
         a wrapper on the matplotlib animation.FuncAnimation class
         user calls this without arguments after instantiating the Movie class
         '''
-        self.fig, self.ax = self.fig_ax_func()
-        a = animation.FuncAnimation(
-            self.fig,
-            self.update,
-            frames=self.frames,
-            interval=1/self.fps*1000,
-            repeat=False,
-            blit=False
-        )
-
-        with tqdm(total=len(self.frames)) as self.pbar:
-            a.save(
-                self.output_filename,
-                writer=self.writer
+        with plt.style.context(self.matplotlib_style):
+            self.fig, self.ax = self.fig_ax_func()
+            a = animation.FuncAnimation(
+                self.fig,
+                self.update,
+                frames=self.frames,
+                interval=1/self.fps*1000,
+                repeat=False,
+                blit=False
             )
+
+            with tqdm(total=len(self.frames)) as self.pbar:
+                a.save(
+                    self.output_filename,
+                    writer=self.writer
+                )

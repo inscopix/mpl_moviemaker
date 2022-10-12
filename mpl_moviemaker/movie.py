@@ -55,15 +55,31 @@ class Movie(object):
         Args:
             ax (matplotlib axis, array of axes, or dict with axes as values): axes to clear
         '''
+        # TO DO: Make this properly recursive!
         try:
             ax.cla()
         except AttributeError:
             if isinstance(ax, np.ndarray):
                 for subaxis in ax.flatten():
                     subaxis.cla()
+            elif isinstance(ax, list):
+                for subaxis in ax:
+                    subaxis.cla()
             elif isinstance(ax, dict):
                 for key in ax.keys():
-                    ax[key].cla()
+                    try:
+                        ax[key].cla()
+                    except AttributeError:
+                        if isinstance(ax[key], np.ndarray):
+                            for subaxis in ax[key].flatten():
+                                subaxis.cla()
+                        elif isinstance(ax[key], list):
+                            for subaxis in ax[key]:
+                                if isinstance(subaxis, list):
+                                    for subsubaxis in subaxis:
+                                        subsubaxis.cla()
+                                else:
+                                    subaxis.cla()
 
 
     def update(self, frame_number):
@@ -96,7 +112,7 @@ class Movie(object):
 
         writer = animation.FFMpegWriter(
             fps=self.fps,
-            codec='mpeg4',
+            codec=None, #'h264', #'mpeg4',
             bitrate=-1,
             extra_args=['-pix_fmt', 'yuv420p', '-q:v', '5']
         )
@@ -123,3 +139,24 @@ class Movie(object):
                     self.output_filename,
                     writer=self.writer
                 )
+
+    def to_html(self):
+        '''
+        a wrapper on the matplotlib animation.FuncAnimation class
+        user calls this without arguments after instantiating the Movie class
+        '''
+        with plt.style.context(self.matplotlib_style):
+            self.fig, self.ax = self.fig_ax_func()
+            a = animation.FuncAnimation(
+                self.fig,
+                self.update,
+                frames=self.frames,
+                interval=1/self.fps*1000,
+                repeat=False,
+                blit=False
+            )
+
+            with tqdm(total=len(self.frames)) as self.pbar:
+                video = a.to_html5_video()
+
+        return video

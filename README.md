@@ -23,9 +23,6 @@ The basic concept is that the user defines two functions:
 
 The user then instantiates the `Movie` class, passing it those two functions along with some other parameters (start_frame, end_frame, frame_step, fps, filename). After calling the `make_movie` method on the `Movie` class, each frame will be generated and stacked into a movie with the desired filename.  
 
-The package assumes that the user has ffmpeg installed on their system. See https://www.ffmpeg.org/download.html  
-By default, the `Movie` class assumes that ffmpeg is installed to `/usr/bin/ffmpeg`. Check the docstring for the movie class to see how to specify alternate install locations.  
-
 ## A simple example (see example_notebook.ipynb as well)
 The first example shows a very basic use case with a single axis on a matplotlib figure canvas.  
 
